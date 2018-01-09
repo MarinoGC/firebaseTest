@@ -1,0 +1,24 @@
+{
+  "courses" : {
+    "itema" : {
+      "description" : "CARASSO.NU",
+      "title" : "test page",
+      "url" : "https://carasso.nu"
+    },
+    "itemb" : {
+      "description" : "CARASSO.NL",
+      "title" : "Fred Carasso",
+      "url" : "https://carasso.nl"
+    },
+    "itemc" : {
+      "description" : "CARASSO.BIZ",
+      "title" : "bedoeld (straks) voor opslag",
+      "url" : "https://carasso.biz"
+    },
+    "itemd" : {
+      "description" : "RUTH CARASSO",
+      "title" : "hier het zang aanbod van Ruth",
+      "url" : "http://ruthcarasso.nl"
+    }
+  }
+}
