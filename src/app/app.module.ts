@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
-import { environment } from '../environments/environment';
+import { firebase } from '../environments/firebase';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
@@ -19,7 +19,7 @@ import { CoursesListComponent } from './courses-list/courses-list.component';
     ],
     imports: [
         BrowserModule,
-        AngularFireModule.initializeApp(environment.firebase),
+        AngularFireModule.initializeApp(firebase.firebase),
         AngularFireDatabaseModule,
         AngularFireAuthModule,
         NgbModule.forRoot(),
