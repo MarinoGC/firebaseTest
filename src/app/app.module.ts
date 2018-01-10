@@ -5,10 +5,12 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { firebase } from '../environments/firebase';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CoreModule} from "./core/core.module";
 
 import { AppComponent } from './app.component';
 import { AppNavbarComponent } from './app-navbar/app-navbar.component';
 import { CoursesListComponent } from './courses-list/courses-list.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 
 @NgModule({
@@ -16,9 +18,11 @@ import { CoursesListComponent } from './courses-list/courses-list.component';
         AppComponent,
         AppNavbarComponent,
         CoursesListComponent,
+        UserProfileComponent,
     ],
     imports: [
         BrowserModule,
+        CoreModule,
         AngularFireModule.initializeApp(firebase.firebase),
         AngularFireDatabaseModule,
         AngularFireAuthModule,
