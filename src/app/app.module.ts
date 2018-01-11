@@ -6,11 +6,13 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { firebase } from '../environments/firebase';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CoreModule} from "./core/core.module";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { AppComponent } from './app.component';
 import { AppNavbarComponent } from './app-navbar/app-navbar.component';
 import { CoursesListComponent } from './courses-list/courses-list.component';
-import { UserProfileComponent } from './user-profile/user-profile.component';
+import { LoginGoogleComponent } from './login-google/login-google.component';
+import { LoginEmailComponent } from './login-email/login-email.component'
 
 
 @NgModule({
@@ -18,14 +20,18 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
         AppComponent,
         AppNavbarComponent,
         CoursesListComponent,
-        UserProfileComponent,
+        LoginGoogleComponent,
+        LoginEmailComponent,
     ],
     imports: [
         BrowserModule,
-        CoreModule,
         AngularFireModule.initializeApp(firebase.firebase),
         AngularFireDatabaseModule,
         AngularFireAuthModule,
+        CoreModule,
+        FormsModule,
+        ReactiveFormsModule,
+//        AngularFirestoreModule,
         NgbModule.forRoot(),
     ],
     providers: [],

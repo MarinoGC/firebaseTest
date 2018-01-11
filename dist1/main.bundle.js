@@ -99,7 +99,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<body>\n<app-navbar></app-navbar>\n<div class=\"container\">\n    <div class=\"starter-template\">\n        <h1>Angular, Bootstrap & Firebase Starter Application</h1>\n        <p class=\"lead\">This application is built with Angular 4, Bootstrap 4 and Firebase.</p>\n        <hr>\n        <user-profile></user-profile>\n        <hr>\n        <h3>Webpages List</h3>\n        <courses-list></courses-list>\n    </div>\n</div>\n</body>\n"
+module.exports = "<body>\n<app-navbar></app-navbar>\n<div class=\"container\">\n    <div class=\"starter-template\">\n        <h1>Angular, Bootstrap & Firebase Starter Application</h1>\n        <p class=\"lead\">This application is built with Angular 4, Bootstrap 4 and Firebase.</p>\n        <hr>\n        <login-google></login-google>\n        <hr>\n        <login-email></login-email>\n        <hr>\n        <h3>Webpages List</h3>\n        <courses-list></courses-list>\n    </div>\n</div>\n</body>\n"
 
 /***/ }),
 
@@ -147,10 +147,12 @@ var AppComponent = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__environments_firebase__ = __webpack_require__("../../../../../src/environments/firebase.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ng_bootstrap_ng_bootstrap__ = __webpack_require__("../../../../@ng-bootstrap/ng-bootstrap/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__core_core_module__ = __webpack_require__("../../../../../src/app/core/core.module.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__app_component__ = __webpack_require__("../../../../../src/app/app.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__app_navbar_app_navbar_component__ = __webpack_require__("../../../../../src/app/app-navbar/app-navbar.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__courses_list_courses_list_component__ = __webpack_require__("../../../../../src/app/courses-list/courses-list.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__user_profile_user_profile_component__ = __webpack_require__("../../../../../src/app/user-profile/user-profile.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__angular_forms__ = __webpack_require__("../../../forms/esm5/forms.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__app_component__ = __webpack_require__("../../../../../src/app/app.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__app_navbar_app_navbar_component__ = __webpack_require__("../../../../../src/app/app-navbar/app-navbar.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__courses_list_courses_list_component__ = __webpack_require__("../../../../../src/app/courses-list/courses-list.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__login_google_login_google_component__ = __webpack_require__("../../../../../src/app/login-google/login-google.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__login_email_login_email_component__ = __webpack_require__("../../../../../src/app/login-email/login-email.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -169,27 +171,33 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
+
+
 var AppModule = (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["G" /* NgModule */])({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_8__app_component__["a" /* AppComponent */],
-                __WEBPACK_IMPORTED_MODULE_9__app_navbar_app_navbar_component__["a" /* AppNavbarComponent */],
-                __WEBPACK_IMPORTED_MODULE_10__courses_list_courses_list_component__["a" /* CoursesListComponent */],
-                __WEBPACK_IMPORTED_MODULE_11__user_profile_user_profile_component__["a" /* UserProfileComponent */],
+                __WEBPACK_IMPORTED_MODULE_9__app_component__["a" /* AppComponent */],
+                __WEBPACK_IMPORTED_MODULE_10__app_navbar_app_navbar_component__["a" /* AppNavbarComponent */],
+                __WEBPACK_IMPORTED_MODULE_11__courses_list_courses_list_component__["a" /* CoursesListComponent */],
+                __WEBPACK_IMPORTED_MODULE_12__login_google_login_google_component__["a" /* LoginGoogleComponent */],
+                __WEBPACK_IMPORTED_MODULE_13__login_email_login_email_component__["a" /* LoginEmailComponent */],
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
-                __WEBPACK_IMPORTED_MODULE_7__core_core_module__["a" /* CoreModule */],
                 __WEBPACK_IMPORTED_MODULE_2_angularfire2__["a" /* AngularFireModule */].initializeApp(__WEBPACK_IMPORTED_MODULE_5__environments_firebase__["a" /* firebase */].firebase),
                 __WEBPACK_IMPORTED_MODULE_3_angularfire2_database__["b" /* AngularFireDatabaseModule */],
                 __WEBPACK_IMPORTED_MODULE_4_angularfire2_auth__["b" /* AngularFireAuthModule */],
+                __WEBPACK_IMPORTED_MODULE_7__core_core_module__["a" /* CoreModule */],
+                __WEBPACK_IMPORTED_MODULE_8__angular_forms__["b" /* FormsModule */],
+                __WEBPACK_IMPORTED_MODULE_8__angular_forms__["e" /* ReactiveFormsModule */],
+                //        AngularFirestoreModule,
                 __WEBPACK_IMPORTED_MODULE_6__ng_bootstrap_ng_bootstrap__["a" /* NgbModule */].forRoot(),
             ],
             providers: [],
-            bootstrap: [__WEBPACK_IMPORTED_MODULE_8__app_component__["a" /* AppComponent */]]
+            bootstrap: [__WEBPACK_IMPORTED_MODULE_9__app_component__["a" /* AppComponent */]]
         })
     ], AppModule);
     return AppModule;
@@ -232,7 +240,8 @@ var AuthService = (function () {
         var _this = this;
         this.afAuth = afAuth;
         this.afs = afs;
-        //// Get auth data, then get firestore user document || null
+        this.authState = null;
+        // Get auth data, then get firestore user document || null
         this.user = this.afAuth.authState
             .switchMap(function (user) {
             if (user) {
@@ -242,7 +251,41 @@ var AuthService = (function () {
                 return __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__["a" /* Observable */].of(null);
             }
         });
+        this.user
+            .subscribe(function (auth) {
+            _this.authState = auth;
+        });
     }
+    //__________________________EMAIL SIGN-IN___________________________
+    //__________________________________________________________________
+    AuthService.prototype.emailSignUp = function (email, password) {
+        var _this = this;
+        return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
+            .then(function (user) {
+            return _this.setUserDoc(user); // create initial user document
+        })
+            .catch(function (error) { return _this.handleError(error); });
+    };
+    // Update properties on the user document
+    AuthService.prototype.updateUser = function (user, data) {
+        return this.afs.doc("users/" + user.uid).update(data);
+    };
+    // If error, console log and notify user
+    AuthService.prototype.handleError = function (error) {
+        console.error(error);
+        //        this.notify.update(error.message, 'error')
+    };
+    AuthService.prototype.setUserDoc = function (user) {
+        var userRef = this.afs.doc("users/" + user.uid);
+        var data = {
+            uid: user.uid,
+            email: user.email || null,
+            photoURL: 'https://goo.gl/Fz9nrQ'
+        };
+        return userRef.set(data);
+    };
+    //___________________________GOOGLE SIGN-IN_________________________
+    //__________________________________________________________________
     AuthService.prototype.googleLogin = function () {
         var provider = new __WEBPACK_IMPORTED_MODULE_1_firebase_app__["auth"].GoogleAuthProvider();
         return this.oAuthLogin(provider);
@@ -265,6 +308,8 @@ var AuthService = (function () {
         };
         return userRef.set(data);
     };
+    //_______________________SIGN-OUT___________________________________
+    //__________________________________________________________________
     AuthService.prototype.signOut = function () {
         this.afAuth.auth.signOut().then(function () {
             //            this.router.navigate(['/']);
@@ -389,7 +434,7 @@ var CoursesListComponent = (function () {
 
 /***/ }),
 
-/***/ "../../../../../src/app/user-profile/user-profile.component.css":
+/***/ "../../../../../src/app/login-email/login-email.component.css":
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
@@ -407,18 +452,132 @@ module.exports = module.exports.toString();
 
 /***/ }),
 
-/***/ "../../../../../src/app/user-profile/user-profile.component.html":
+/***/ "../../../../../src/app/login-email/login-email.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"auth.user | async; then authenticated else guest\">\n    <!-- template will replace this div -->\n</div>\n\n<!-- User NOT logged in -->\n<ng-template #guest>\n    <h3>gegroet gast</h3>\n    <p>Login to get started...</p>\n\n    <button (click)=\"auth.googleLogin()\">\n        <i class=\"fa fa-google\"></i> Connect Google\n    </button>\n</ng-template>\n\n<!-- User logged in -->\n<ng-template #authenticated>\n    <div *ngIf=\"auth.user | async as user\">\n        <h3>Ave, {{ user.displayName }}</h3>\n        <img  [src]=\"user.photoURL\">\n        <p>UID: {{ user.uid }}</p>\n        <p>Favorite Color: {{ user?.favoriteColor }} </p>\n        <button (click)=\"auth.signOut()\">Logout</button>\n    </div>\n</ng-template>"
+module.exports = "<ng-container *ngIf=\"(auth.user | async) || {} as user\">\n\n  <form [formGroup]=\"signupForm\" *ngIf=\"!user.uid\" (ngSubmit)=\"signup()\">\n\n    <h3>New User Signup</h3>\n\n    <label for=\"email\">Email</label>\n    <input type=\"email\" formControlName=\"email\">\n\n    <div *ngIf=\"email.invalid && email.dirty\">\n      Your email doesn't look quite right...\n    </div>\n\n    <label for=\"password\">Password</label>\n    <input type=\"password\" formControlName=\"password\" required>\n    <div *ngIf=\"password.invalid && password.touched\" >\n      Password must be between 6 and 24 chars and have at least one number\n    </div>\n    <div *ngIf=\"signupForm.valid\" >Form looks good! Let's do this.</div>\n\n    <button type=\"submit\" [disabled]=\"!signupForm.valid\">Submit</button>\n  </form>\n\n  <form [formGroup]=\"detailForm\" *ngIf=\"user.uid && !user.catchPhrase\" (ngSubmit)=\"setCatchPhrase(user)\">\n    <h3>Set your Catch Phrase</h3>\n    <label for=\"catchPhrase\">CatchPhrase</label>\n    <input type=\"test\" formControlName=\"catchPhrase\">\n    <button type=\"submit\" [disabled]=\"!detailForm.valid\">Submit</button>\n  </form>\n\n  <p *ngIf=\"user.catchPhrase\">\n    You have completed the form!\n  </p>\n\n</ng-container>"
 
 /***/ }),
 
-/***/ "../../../../../src/app/user-profile/user-profile.component.ts":
+/***/ "../../../../../src/app/login-email/login-email.component.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UserProfileComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoginEmailComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__core_auth_service__ = __webpack_require__("../../../../../src/app/core/auth.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__("../../../forms/esm5/forms.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var LoginEmailComponent = (function () {
+    function LoginEmailComponent(fb, auth) {
+        this.fb = fb;
+        this.auth = auth;
+    }
+    Object.defineProperty(LoginEmailComponent.prototype, "email", {
+        get: function () { return this.signupForm.get('email'); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LoginEmailComponent.prototype, "password", {
+        get: function () { return this.signupForm.get('password'); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(LoginEmailComponent.prototype, "catchPhrase", {
+        get: function () { return this.detailForm.get('catchPhrase'); },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    // Step 1
+    LoginEmailComponent.prototype.signup = function () {
+        return this.auth.emailSignUp(this.email.value, this.password.value);
+    };
+    // Step 2
+    LoginEmailComponent.prototype.setCatchPhrase = function (user) {
+        return this.auth.updateUser(user, { catchPhrase: this.catchPhrase.value });
+    };
+    LoginEmailComponent.prototype.ngOnInit = function () {
+        // First step
+        this.signupForm = this.fb.group({
+            'email': ['', [
+                    __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].required,
+                    __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].email
+                ]],
+            'password': ['', [
+                    __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].pattern('^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$'),
+                    __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].minLength(6),
+                    __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].maxLength(25),
+                    __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].required
+                ]],
+            'region': ['', []]
+        });
+        //Second step
+        this.detailForm = this.fb.group({
+            'catchPhrase': ['', [
+                    __WEBPACK_IMPORTED_MODULE_2__angular_forms__["f" /* Validators */].required
+                ]]
+        });
+    };
+    LoginEmailComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
+            selector: 'login-email',
+            template: __webpack_require__("../../../../../src/app/login-email/login-email.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/login-email/login-email.component.css")]
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__angular_forms__["a" /* FormBuilder */],
+            __WEBPACK_IMPORTED_MODULE_1__core_auth_service__["a" /* AuthService */]])
+    ], LoginEmailComponent);
+    return LoginEmailComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/login-google/login-google.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/login-google/login-google.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div *ngIf=\"auth.user | async; then authenticated else guest\">\n  <!-- template will replace this div -->\n</div>\n\n<!-- User NOT logged in -->\n<ng-template #guest>\n  <h3>gegroet gast</h3>\n  <p>Login to get started...</p>\n\n  <button (click)=\"auth.googleLogin()\">\n    <i class=\"fa fa-google\"></i> Connect Google\n  </button>\n</ng-template>\n\n<!-- User logged in -->\n<ng-template #authenticated>\n  <div *ngIf=\"auth.user | async as user\">\n    <h3>Ave, {{ user.displayName }}</h3>\n    <img  [src]=\"user.photoURL\">\n    <p>UID: {{ user.uid }}</p>\n    <p>Favorite Color: {{ user?.favoriteColor }} </p>\n    <button (click)=\"auth.signOut()\">Logout</button>\n  </div>\n</ng-template>\n<hr>\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/login-google/login-google.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoginGoogleComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__core_auth_service__ = __webpack_require__("../../../../../src/app/core/auth.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -432,21 +591,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
-var UserProfileComponent = (function () {
-    function UserProfileComponent(auth) {
+var LoginGoogleComponent = (function () {
+    function LoginGoogleComponent(auth) {
         this.auth = auth;
     }
-    UserProfileComponent.prototype.ngOnInit = function () {
+    LoginGoogleComponent.prototype.ngOnInit = function () {
     };
-    UserProfileComponent = __decorate([
+    LoginGoogleComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'user-profile',
-            template: __webpack_require__("../../../../../src/app/user-profile/user-profile.component.html"),
-            styles: [__webpack_require__("../../../../../src/app/user-profile/user-profile.component.css")]
+            selector: 'login-google',
+            template: __webpack_require__("../../../../../src/app/login-google/login-google.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/login-google/login-google.component.css")]
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__core_auth_service__["a" /* AuthService */]])
-    ], UserProfileComponent);
-    return UserProfileComponent;
+    ], LoginGoogleComponent);
+    return LoginGoogleComponent;
 }());
 
 
